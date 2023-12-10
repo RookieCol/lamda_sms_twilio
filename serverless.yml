@@ -1,0 +1,24 @@
+service: sms
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: sa-east-1
+
+
+functions:
+  sendText:
+    handler: handler.sendText
+    environment:
+      # Replace these environment variables with references to your AWS Parameter Store or Secrets Manager
+      TWILIO_ACCOUNT_SID: ''
+      TWILIO_AUTH_TOKEN: ''
+      TWILIO_PHONE_NUMBER: ''
+    events:
+      - http:
+          path: api/sendText
+          method: post
+          integration: lambda
+          cors: true
